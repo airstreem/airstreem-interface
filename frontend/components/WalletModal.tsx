@@ -43,7 +43,7 @@ const WalletModal = () => {
   return (
     <>
       <Center>
-        <Button onClick={() => onOpen()} mt={20}>{`Connect Wallet`}</Button>
+        <Button onClick={() => onOpen} mt={20}>{`Connect Wallet`}</Button>
       </Center>
 
       <Modal onClose={onClose} size={"lg"} isOpen={isOpen}>

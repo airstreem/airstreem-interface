@@ -12,6 +12,7 @@
     "@chakra-ui/react": "^2.2.1",
     "@emotion/react": "^11.9.3",
     "@emotion/styled": "^11.9.3",
+    "@uniswap/widgets": "^1.1.1",
     "@walletconnect/web3-provider": "^1.7.8",
     "@web3auth/web3auth": "^1.1.0",
     "framer-motion": "^6.3.15",

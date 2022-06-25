@@ -12,8 +12,17 @@ import {
   VStack,
   SimpleGrid,
   Spacer,
+  Modal,
+  ModalOverlay,
+  ModalContent,
+  useDisclosure,
+  Select,
+  FormControl,
+  Input,
+  FormLabel,
 } from "@chakra-ui/react";
 import { useMoralis } from "react-moralis";
+import FileUpload from "./FileUpload";
 import SendingCard from "./SendingCard";
 
 const Sending = () => {
@@ -25,6 +34,7 @@ const Sending = () => {
     account,
     logout,
   } = useMoralis();
+  const { isOpen, onOpen, onClose } = useDisclosure();
 
   const Cards = [
     {
@@ -51,20 +61,18 @@ const Sending = () => {
   ];
 
   return (
-    <Box
-      p={12}
-      boxShadow="2xl"
-      m="20px 20% 20px 20%"
-      maxWidth={"1000px"}
-      zIndex={2}
-      rounded={25}
-      bg="white"
-    >
+    <Box p={12} boxShadow="2xl" m="20px 20% 20px 20%" rounded={25} bg="white">
       <VStack spacing={4} align="stretch">
         <Flex justify={"stretch"}>
           <Heading>Sending</Heading>
           <Spacer />
-          <Button fontSize={"xl"} h="50px" colorScheme={"blue"} rounded="25px">
+          <Button
+            onClick={onOpen}
+            fontSize={"xl"}
+            h="50px"
+            colorScheme={"blue"}
+            rounded="25px"
+          >
             Create Stream
           </Button>
         </Flex>
@@ -80,6 +88,52 @@ const Sending = () => {
           ))}
         </SimpleGrid>
       </VStack>
+      <Modal onClose={onClose} size={"2xl"} isOpen={isOpen}>
+        <ModalOverlay />
+        <ModalContent>
+          <VStack align={"stretch"} spacing={4} p={12}>
+            {/* intro */}
+            <Heading>New Stream</Heading>
+
+            <Text>Holders of which NFT collection are you streaming to?</Text>
+            <Select placeholder="Select collection..">
+              <option value="option1">BAYC 1</option>
+              <option value="option2">BAYC 2</option>
+              <option value="option3">BAYC 3</option>
+            </Select>
+
+            {/* new collection */}
+            <Heading pt={4} fontSize={"xl"}>
+              Create new collection
+            </Heading>
+            <FormControl isRequired>
+              <FormLabel htmlFor="name">Name</FormLabel>
+              <Input id="name" placeholder="Bored Apes Yacht Club" h="50px" />
+            </FormControl>
+            <FormControl isRequired>
+              <FormLabel htmlFor="symbol">Symbol</FormLabel>
+              <Input id="name" placeholder="BAYC" h="50px" />
+            </FormControl>
+
+            <FormControl isRequired>
+              <FormLabel htmlFor="files">Upload files</FormLabel>
+              <FileUpload />
+            </FormControl>
+            <Text>
+              Note: images and metadata file names should match the existent
+              collection.
+            </Text>
+
+            {/* spacer */}
+            <Box pt={4}></Box>
+
+            {/* upload */}
+            <Button fontSize="xl" height={"50px"}>
+              Start Stream
+            </Button>
+          </VStack>
+        </ModalContent>
+      </Modal>
     </Box>
   );
 };
