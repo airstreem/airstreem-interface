@@ -7,6 +7,7 @@ import { useEffect } from "react";
 import { Box, Button, Text } from "@chakra-ui/react";
 import WalletModal from "./components/WalletModal";
 import NavBar from "./components/NavBar";
+import Receiving from "./components/Receiving";
 
 const Home: NextPage = () => {
   const {
@@ -41,14 +42,20 @@ const Home: NextPage = () => {
   return (
     <Box
       as="main"
-      width="full"
+      w="full"
+      // minH="2000px"
       // maxWidth={1100}
+      alignContent={"center"}
+      justifyContent={"center"}
       margin="0 auto"
+      bg={isAuthenticated ? "gray.100" : "white"}
     >
       {!isAuthenticated && <WalletModal />}
       {isAuthenticated && (
         <>
           <NavBar />
+          <Receiving />
+          <Receiving />
         </>
       )}
     </Box>

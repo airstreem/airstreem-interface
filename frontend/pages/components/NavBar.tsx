@@ -27,7 +27,7 @@ const NavBar = () => {
   };
 
   return (
-    <Box px={4} boxShadow="md" pos="fixed" width="full" zIndex={2}>
+    <Box px={4} boxShadow="md" width="full" zIndex={2} bg="white">
       <Flex
         maxWidth="1100"
         margin="0 auto"
