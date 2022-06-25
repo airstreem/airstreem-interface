@@ -1,6 +1,12 @@
 import type { NextPage } from "next";
+import Head from "next/head";
+import Image from "next/image";
+import styles from "../styles/Home.module.css";
 import { useMoralis } from "react-moralis";
 import { useEffect } from "react";
+import { Box, Button, Text } from "@chakra-ui/react";
+import WalletModal from "./components/WalletModal";
+import NavBar from "./components/NavBar";
 
 const Home: NextPage = () => {
   const {
@@ -19,7 +25,7 @@ const Home: NextPage = () => {
     // eslint-disable-next-line react-hooks/exhaustive-deps
   }, [isAuthenticated]);
 
-  const login = async () => {
+  const loginMetamask = async () => {
     if (!isAuthenticated) {
       await authenticate({ signingMessage: "Log in using Moralis" })
         .then(function (user) {
@@ -32,19 +38,20 @@ const Home: NextPage = () => {
     }
   };
 
-  const logOut = async () => {
-    await logout();
-    console.log("logged out");
-  };
-
   return (
-    <div>
-      <h1>Moralis Hello World!</h1>
-      <button onClick={login}>Moralis Metamask Login</button>
-      <button onClick={logOut} disabled={isAuthenticating}>
-        Logout
-      </button>
-    </div>
+    <Box
+      as="main"
+      width="full"
+      // maxWidth={1100}
+      margin="0 auto"
+    >
+      {!isAuthenticated && <WalletModal />}
+      {isAuthenticated && (
+        <>
+          <NavBar />
+        </>
+      )}
+    </Box>
   );
 };
 
