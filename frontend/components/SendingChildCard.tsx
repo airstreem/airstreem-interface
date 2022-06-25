@@ -10,9 +10,8 @@ import {
   Progress,
   VStack,
 } from "@chakra-ui/react";
-import { useRouter } from "next/router";
 
-const ReceivingParentCard = ({
+const SendingChildCard = ({
   title,
   body,
   header,
@@ -23,15 +22,16 @@ const ReceivingParentCard = ({
   header?: string;
   slug?: string;
 }) => {
-  const router = useRouter();
   return (
     <Box
       w="250px"
-      h="300px"
-      boxShadow="lg"
+      h="330px"
+      boxShadow="xl"
       rounded="25px"
       p={6}
       overflow="hidden"
+      position="relative"
+      bg="white"
     >
       <Box
         h="180px"
@@ -43,19 +43,24 @@ const ReceivingParentCard = ({
         backgroundRepeat="no-repeat"
         backgroundSize="cover"
         backgroundImage={`url(${header})`}
-        zIndex="0"
+        zIndex="1"
       />
-      <VStack spacing={"4px"} align="stretch">
-        <Text fontSize={20} fontWeight="bold">
-          {title}
-        </Text>
-        <Text color="gray.500">{body}</Text>
-        <Text color="gray.500" pb="20px">
-          {"owner: vitalik.eth"}
+      <VStack spacing={3} align="stretch">
+        <VStack spacing={0} align="stretch">
+          <Text fontSize={20} fontWeight="bold">
+            {title}
+          </Text>
+          <Text color="gray.500" mt={"-10px"}>
+            {body}
+          </Text>
+        </VStack>
+        <Progress value={80} h="20px" rounded="15px" />
+        <Text color="gray.500" pb="20px" align={"center"}>
+          {"streaming to: vitalik.eth"}
         </Text>
       </VStack>
     </Box>
   );
 };
 
-export default ReceivingParentCard;
+export default SendingChildCard;

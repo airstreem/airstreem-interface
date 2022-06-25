@@ -26,11 +26,6 @@ const Receiving = () => {
     logout,
   } = useMoralis();
 
-  const logOut = async () => {
-    await logout();
-    console.log("logged out");
-  };
-
   const Cards = [
     {
       id: "1",
@@ -69,14 +64,8 @@ const Receiving = () => {
         <Flex justify={"stretch"}>
           <Heading>Receiving</Heading>
           <Spacer />
-          <Button
-            fontSize={"xl"}
-            w="110px"
-            h="50px"
-            colorScheme={"blue"}
-            rounded="25px"
-          >
-            Swap
+          <Button fontSize={"xl"} h="50px" colorScheme={"blue"} rounded="25px">
+            Swap Tokens
           </Button>
         </Flex>
         <SimpleGrid columns={3} spacing={10} pt={10}>

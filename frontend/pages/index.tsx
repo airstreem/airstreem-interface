@@ -5,9 +5,10 @@ import styles from "../styles/Home.module.css";
 import { useMoralis } from "react-moralis";
 import { useEffect } from "react";
 import { Box, Button, Text } from "@chakra-ui/react";
-import WalletModal from "./components/WalletModal";
-import NavBar from "./components/NavBar";
-import Receiving from "./components/Receiving";
+import WalletModal from "../components/WalletModal";
+import NavBar from "../components/NavBar";
+import Receiving from "../components/Receiving";
+import Sending from "../components/Sending";
 
 const Home: NextPage = () => {
   const {
@@ -49,13 +50,14 @@ const Home: NextPage = () => {
       justifyContent={"center"}
       margin="0 auto"
       bg={isAuthenticated ? "gray.100" : "white"}
+      pb={12}
     >
       {!isAuthenticated && <WalletModal />}
       {isAuthenticated && (
         <>
           <NavBar />
           <Receiving />
-          <Receiving />
+          <Sending />
         </>
       )}
     </Box>

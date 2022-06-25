@@ -23,10 +23,9 @@ const ReceivingChildCard = () => {
       overflow="hidden"
       backgroundPosition="center"
       backgroundSize="cover"
-      // backgroundImage={`url(${"ape.png"})`}
+      backgroundImage={`url(${"ape.png"})`}
       position="relative"
-      bg="black"
-      opacity={0.95}
+      bg="rgb(25, 25, 25, 1)"
     >
       <VStack spacing={4} align="stretch" p={10} zIndex="5">
         <Center zIndex="2" pb="6">
