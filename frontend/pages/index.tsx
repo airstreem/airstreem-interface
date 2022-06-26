@@ -1,10 +1,7 @@
 import type { NextPage } from "next";
-import Head from "next/head";
-import Image from "next/image";
-import styles from "../styles/Home.module.css";
 import { useMoralis } from "react-moralis";
 import { useEffect } from "react";
-import { Box, Button, Text } from "@chakra-ui/react";
+import { Box, Text } from "@chakra-ui/react";
 import WalletModal from "../components/WalletModal";
 import NavBar from "../components/NavBar";
 import Receiving from "../components/Receiving";
@@ -23,22 +20,10 @@ const Home: NextPage = () => {
   useEffect(() => {
     if (isAuthenticated) {
       // add your logic here
+      console.log(user!.get("ethAddress"));
     }
     // eslint-disable-next-line react-hooks/exhaustive-deps
   }, [isAuthenticated]);
-
-  const loginMetamask = async () => {
-    if (!isAuthenticated) {
-      await authenticate({ signingMessage: "Log in using Moralis" })
-        .then(function (user) {
-          console.log("logged in user:", user);
-          console.log(user!.get("ethAddress"));
-        })
-        .catch(function (error) {
-          console.log(error);
-        });
-    }
-  };
 
   return (
     <Box

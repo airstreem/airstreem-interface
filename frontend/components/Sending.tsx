@@ -20,10 +20,14 @@ import {
   FormControl,
   Input,
   FormLabel,
+  Icon,
 } from "@chakra-ui/react";
-import { useMoralis } from "react-moralis";
-import FileUpload from "./FileUpload";
+import Moralis from "moralis";
+import { useRef, useState } from "react";
+import { IoMdImage } from "react-icons/io";
+import { useMoralis, useMoralisFile } from "react-moralis";
 import SendingCard from "./SendingCard";
+// import listReactFiles from "list-react-files";
 
 const Sending = () => {
   const {
@@ -34,6 +38,12 @@ const Sending = () => {
     account,
     logout,
   } = useMoralis();
+
+  const { saveFile } = useMoralisFile();
+  const [fileTarget, setFileTarget] = useState("");
+
+  const inputRef = useRef();
+
   const { isOpen, onOpen, onClose } = useDisclosure();
 
   const Cards = [
@@ -59,6 +69,37 @@ const Sending = () => {
       slug: "aaa",
     },
   ];
+
+  const onStartStream = async () => {
+    // Save file input to IPFS
+
+    // saveFile("ape.png", fileTarget, {
+    //   type: "image/png",
+    //   onSuccess: (result) => console.log(result),
+    //   onError: (error) => console.log(error),
+    // });
+
+    const file = new Moralis.File("apestream.png", fileTarget);
+    var find = require("list-files");
+
+    find(
+      function (result) {
+        console.log(result);
+        // => './dirname/a.js'
+        //=> './dirname/b.js'
+      },
+      {
+        dir: "apes/",
+        name: "png",
+      }
+    );
+    // listReactFiles(__dirname).then((files) => console.log(files));
+    // await file.saveIPFS();
+    // console.log(file.ipfs());
+    // console.log(file.hash());
+
+    // TODO: send hash to backend
+  };
 
   return (
     <Box p={12} boxShadow="2xl" m="20px 20% 20px 20%" rounded={25} bg="white">
@@ -117,7 +158,39 @@ const Sending = () => {
 
             <FormControl isRequired>
               <FormLabel htmlFor="files">Upload files</FormLabel>
-              <FileUpload />
+
+              {/* File Upload */}
+              <Center w="full">
+                <VStack
+                  borderColor="gray.300"
+                  w="full"
+                  borderStyle="dashed"
+                  borderWidth="2px"
+                  // position="relative"
+                  // backgroundPosition="center"
+                  // backgroundRepeat="no-repeat"
+                  // backgroundSize="cover"
+                  // backgroundImage={file}
+                >
+                  <Icon as={IoMdImage} color="gray.300" w={16} h={16} />
+                  <Input
+                    type="file"
+                    height="full"
+                    width="full"
+                    position="absolute"
+                    opacity="0"
+                    aria-hidden="false"
+                    accept="image/*"
+                    onChange={(e) => {
+                      setFileTarget(e.target.files[0]);
+                    }}
+                    _hover={{
+                      cursor: "pointer",
+                    }}
+                  />
+                  <Text>{fileTarget.name}</Text>
+                </VStack>
+              </Center>
             </FormControl>
             <Text>
               Note: images and metadata file names should match the existent
@@ -128,7 +201,7 @@ const Sending = () => {
             <Box pt={4}></Box>
 
             {/* upload */}
-            <Button fontSize="xl" height={"50px"}>
+            <Button onClick={onStartStream} fontSize="xl" height={"50px"}>
               Start Stream
             </Button>
           </VStack>
