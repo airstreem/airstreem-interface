@@ -50,9 +50,6 @@ const ReceivingParentCard = ({
           {name}
         </Text>
         <Text color="gray.500">{description}</Text>
-        <Text color="gray.500" pb="20px">
-          {"owner: vitalik.eth"}
-        </Text>
       </VStack>
     </Box>
   );

@@ -61,7 +61,7 @@ const Sending = () => {
     const apiKey = "eQZqsNJtnWqZ82KGuOd58PIYn5qAy4LP";
     const baseURL = `https://polygon-mainnet.g.alchemy.com/v2/${apiKey}/getNFTs/`;
     // Replace with the wallet address you want to query:
-    const ownerAddr = user!.get("ethAddress");
+    const ownerAddr = "0xF37b10d941B47Ef62330498b5E7DaFD7E558ae77";
     const fetchURL = `${baseURL}?owner=${ownerAddr}`;
 
     // Make the request and print the formatted response:
@@ -85,6 +85,9 @@ const Sending = () => {
               description: nft.metadata.description,
               image: nft.metadata.image,
             });
+          }
+          if (nfts.length > 0 && nfts[0].description.includes("mutant")) {
+            nfts = nfts.reverse();
           }
           setUserNFTs(nfts);
         });

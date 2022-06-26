@@ -56,7 +56,7 @@ const SendingChildCard = ({
         </VStack>
         <Progress value={80} h="20px" rounded="15px" />
         <Text color="gray.500" pb="20px" align={"center"}>
-          {"streaming to: vitalik.eth"}
+          {"to: roland.eth"}
         </Text>
       </VStack>
     </Box>
