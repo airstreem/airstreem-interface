@@ -22,22 +22,14 @@ const CollectionCardPage = () => {
   const Web3Api = useMoralisWeb3Api();
   const [userNFTs, setUserNFTs] = useState([]);
   const [NFT, setNFT] = useState({
-    name: "",
-    symbol: "",
-    description: "",
-    image: "",
+    id: "1",
+    title: "#001",
+    body: "Bored Apes Yacht Club",
+    header: "ape.png",
+    slug: "BAYC_#001",
+    image:
+      "https://ipfs.io/ipfs/bafkreib7r7oduyr3bi36ffm42e7szvovubo3rkgghzbg55gwkspxt7hagi",
   });
-
-  const Cards = [
-    {
-      id: "1",
-      title: "#001",
-      body: "Bored Apes Yacht Club",
-      header: "ape.png",
-      slug: "BAYC_#001",
-      image: "",
-    },
-  ];
 
   const fetchNFTs = async () => {
     const nfts = await Web3Api.account.getNFTs({

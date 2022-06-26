@@ -13,14 +13,14 @@ import {
 import { useRouter } from "next/router";
 
 const ReceivingParentCard = ({
-  title,
-  body,
-  header,
+  name,
+  description,
+  image,
   slug,
 }: {
-  title?: string;
-  body?: string;
-  header?: string;
+  name?: string;
+  description?: string;
+  image?: string;
   slug?: string;
 }) => {
   const router = useRouter();
@@ -28,7 +28,7 @@ const ReceivingParentCard = ({
     <Box
       w="220px"
       h="300px"
-      boxshadow="xl"
+      boxShadow="xl"
       rounded="25px"
       p={6}
       overflow="hidden"
@@ -43,13 +43,13 @@ const ReceivingParentCard = ({
         backgroundPosition="center"
         backgroundRepeat="no-repeat"
         backgroundSize="cover"
-        backgroundImage={`url(${header})`}
+        backgroundImage={`url(${image})`}
       />
       <VStack spacing={"4px"} align="stretch">
         <Text fontSize={20} fontWeight="bold">
-          {title}
+          {name}
         </Text>
-        <Text color="gray.500">{body}</Text>
+        <Text color="gray.500">{description}</Text>
         <Text color="gray.500" pb="20px">
           {"owner: vitalik.eth"}
         </Text>

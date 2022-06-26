@@ -15,14 +15,14 @@ import { useEffect, useState } from "react";
 import { useMoralis, useMoralisWeb3Api } from "react-moralis";
 
 const ReceivingParentCard = ({
-  title,
-  body,
-  header,
+  name,
+  description,
+  image,
   slug,
 }: {
-  title?: string;
-  body?: string;
-  header?: string;
+  name?: string;
+  description?: string;
+  image?: string;
   slug?: string;
 }) => {
   const router = useRouter();
@@ -41,7 +41,7 @@ const ReceivingParentCard = ({
         cursor: "pointer",
       }}
       onClick={() => {
-        router.push(`/collection/${slug}`);
+        // router.push(`/collection/${slug}`);
       }}
     >
       <Box
@@ -53,13 +53,13 @@ const ReceivingParentCard = ({
         backgroundPosition="center"
         backgroundRepeat="no-repeat"
         backgroundSize="cover"
-        backgroundImage={`url(${header})`}
+        backgroundImage={`url(${image})`}
       />
       <VStack spacing={"4px"} align="stretch">
         <Text fontSize={20} fontWeight="bold">
-          {title}
+          {name}
         </Text>
-        <Text color="gray.500">{body}</Text>
+        <Text color="gray.500">{description}</Text>
       </VStack>
     </Box>
   );

@@ -2,16 +2,17 @@ import { Box } from "@chakra-ui/react";
 import ReceivingChildCard from "./ReceivingChildCard";
 import ReceivingParentCard from "./ParentCard";
 import { useRouter } from "next/router";
+import Link from "next/link";
 
 const ReceivingCard = ({
-  title,
-  body,
-  header,
+  name,
+  description,
+  image,
   slug,
 }: {
-  title?: string;
-  body?: string;
-  header?: string;
+  name?: string;
+  description?: string;
+  image?: string;
   slug?: string;
 }) => {
   const router = useRouter();
@@ -22,14 +23,17 @@ const ReceivingCard = ({
         cursor: "pointer",
       }}
       onClick={() => {
-        router.push(`/receiving/${slug}`);
+        router.push(
+          "https://app.superfluid.finance/streams/mumbai/0xa54822ad63b4fd1fbeeffeef634609e3b9c3e1f88c118a25380721e613770432/148/v1"
+        );
+        // router.push(`/receiving/${slug}`);
       }}
     >
       <Box zIndex={"0"} style={{ filter: "brightness(.8)" }}>
         <ReceivingParentCard
-          title={title}
-          body={body}
-          header={header}
+          name={name}
+          description={description}
+          image={image}
           slug={slug}
         />
       </Box>

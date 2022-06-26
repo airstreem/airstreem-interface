@@ -12,14 +12,14 @@ import {
 } from "@chakra-ui/react";
 
 const SendingChildCard = ({
-  title,
-  body,
-  header,
+  name,
+  description,
+  image,
   slug,
 }: {
-  title?: string;
-  body?: string;
-  header?: string;
+  name?: string;
+  description?: string;
+  image?: string;
   slug?: string;
 }) => {
   return (
@@ -42,16 +42,16 @@ const SendingChildCard = ({
         backgroundPosition="center"
         backgroundRepeat="no-repeat"
         backgroundSize="cover"
-        backgroundImage={`url(${header})`}
+        backgroundImage={`url(${image})`}
         zIndex="1"
       />
       <VStack spacing={3} align="stretch">
         <VStack spacing={0} align="stretch">
           <Text fontSize={20} fontWeight="bold">
-            {title}
+            {name}
           </Text>
           <Text color="gray.500" mt={"-10px"}>
-            {body}
+            {description}
           </Text>
         </VStack>
         <Progress value={80} h="20px" rounded="15px" />

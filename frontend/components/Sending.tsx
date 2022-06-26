@@ -23,7 +23,7 @@ import {
   Icon,
 } from "@chakra-ui/react";
 import Moralis from "moralis";
-import { useRef, useState } from "react";
+import { useEffect, useRef, useState } from "react";
 import { IoMdImage } from "react-icons/io";
 import { useMoralis, useMoralisFile } from "react-moralis";
 import SendingCard from "./SendingCard";
@@ -47,33 +47,57 @@ const Sending = () => {
   const [fileTarget, setFileTarget] = useState("");
   const [metaTarget, setMetaTarget] = useState("");
 
-  const inputRef = useRef();
-
   const { isOpen, onOpen, onClose } = useDisclosure();
+  const [userNFTs, setUserNFTs] = useState([]);
 
-  const Cards = [
-    {
-      id: "1",
-      title: "#001",
-      body: "Bored Apes Yacht Club",
-      header: "ape.png",
-      slug: "aaa",
-    },
-    {
-      id: "2",
-      title: "#002",
-      body: "Bored Apes Yacht Club",
-      header: "ape.png",
-      slug: "aaa",
-    },
-    {
-      id: "3",
-      title: "#003",
-      body: "Bored Apes Yacht Club",
-      header: "ape.png",
-      slug: "aaa",
-    },
-  ];
+  const fetchNFTs = async () => {
+    // Setup request options:
+    var requestOptions = {
+      method: "GET",
+      redirect: "follow",
+    };
+
+    // Replace with your Alchemy API key:
+    const apiKey = "eQZqsNJtnWqZ82KGuOd58PIYn5qAy4LP";
+    const baseURL = `https://polygon-mainnet.g.alchemy.com/v2/${apiKey}/getNFTs/`;
+    // Replace with the wallet address you want to query:
+    const ownerAddr = user!.get("ethAddress");
+    const fetchURL = `${baseURL}?owner=${ownerAddr}`;
+
+    // Make the request and print the formatted response:
+    fetch(fetchURL, requestOptions).then(async (response) => {
+      const res = await response.json();
+      console.log(res);
+
+      if (res) {
+        // console.log(res);
+        let nfts = [];
+        res.ownedNfts.map((nft) => {
+          // if (
+          //   nft.contract.address ===
+          //   "0xe0f3cf3a8f27b3504ecb7f82621f7f9cdc0ad625"
+          // )
+          if (nft.metadata.name === "#003") {
+            nfts.push({
+              address: nft.contract.address,
+              name: nft.metadata.name,
+              description: nft.metadata.description,
+              image: nft.metadata.image,
+            });
+          }
+          setUserNFTs(nfts);
+        });
+      }
+    });
+  };
+
+  // console.log(userNFTs);
+
+  useEffect(() => {
+    if (isAuthenticated) {
+      fetchNFTs();
+    }
+  }, [isAuthenticated]);
 
   const onStartStream = async () => {
     // Save file input to IPFS
@@ -152,13 +176,13 @@ const Sending = () => {
           </Button>
         </Flex>
         <SimpleGrid columns={3} spacing={4} pt={4}>
-          {Cards.map((c) => (
+          {userNFTs.map((c) => (
             <SendingCard
-              key={c.id}
-              title={c.title}
-              body={c.body}
-              header={c.header}
-              slug={c.slug}
+              key={c.address}
+              name={c.name}
+              description={c.description}
+              image={c.image}
+              slug={"aaa"}
             />
           ))}
         </SimpleGrid>
@@ -170,11 +194,11 @@ const Sending = () => {
             {/* intro */}
             <Heading>New Stream</Heading>
 
-            <Text>Holders of which NFT collection are you streaming to?</Text>
-            <Select placeholder="Select collection..">
-              <option value="option1">BAYC 1</option>
-              <option value="option2">BAYC 2</option>
-              <option value="option3">BAYC 3</option>
+            <Text>Which NFT holder are you streaming to?</Text>
+            <Select placeholder="Select NFT holder..">
+              <option value="option1">BAYC #003</option>
+              <option value="option2">BAYC #004</option>
+              <option value="option3">BAYC #005</option>
             </Select>
 
             {/* new collection */}

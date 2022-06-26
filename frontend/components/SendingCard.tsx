@@ -5,14 +5,14 @@ import ReceivingParentCard from "./ParentCard";
 import SendingChildCard from "./SendingChildCard";
 
 const ReceivingCard = ({
-  title,
-  body,
-  header,
+  name,
+  description,
+  image,
   slug,
 }: {
-  title?: string;
-  body?: string;
-  header?: string;
+  name?: string;
+  description?: string;
+  image?: string;
   slug?: string;
 }) => {
   const router = useRouter();
@@ -28,17 +28,17 @@ const ReceivingCard = ({
     >
       <Box style={{ filter: "brightness(.8)" }}>
         <ReceivingParentCard
-          title={title}
-          body={body}
-          header={header}
+          name={name}
+          description={description}
+          image={image}
           slug={slug}
         />
       </Box>
       <Box ml={"30px"} mt={"-260px"}>
         <SendingChildCard
-          title={title}
-          body={body}
-          header={header}
+          name={name}
+          description={description}
+          image={image}
           slug={slug}
         />
       </Box>

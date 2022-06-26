@@ -33,7 +33,7 @@ const ReceivingChildCard = () => {
         </Center>
         <Progress value={80} h="20px" rounded="25px" zIndex="2" />
         <Text color="white" zIndex="2" align={"center"} fontSize="lg">
-          16/20 tokens needed to unlock
+          Tokens are being streamed...
         </Text>
       </VStack>
     </Box>
