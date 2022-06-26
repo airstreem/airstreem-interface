@@ -1,11 +1,13 @@
 import type { NextPage } from "next";
 import { useMoralis } from "react-moralis";
-import { useEffect } from "react";
+import { useEffect, useState } from "react";
 import { Box, Text } from "@chakra-ui/react";
 import WalletModal from "../components/WalletModal";
 import NavBar from "../components/NavBar";
 import Receiving from "../components/Receiving";
 import Sending from "../components/Sending";
+import Collection from "../components/Collection";
+import { useMoralisWeb3Api } from "react-moralis";
 
 const Home: NextPage = () => {
   const {
@@ -16,14 +18,27 @@ const Home: NextPage = () => {
     account,
     logout,
   } = useMoralis();
+  const Web3Api = useMoralisWeb3Api();
+  const [userNFTs, setUserNFTs] = useState(null);
+
+  const fetchNFTs = async () => {
+    const nfts = await Web3Api.account.getNFTs({
+      chain: "mumbai",
+      address: user!.get("ethAddress"),
+    });
+    setUserNFTs(nfts);
+  };
 
   useEffect(() => {
     if (isAuthenticated) {
-      // add your logic here
       console.log(user!.get("ethAddress"));
+      fetchNFTs();
     }
-    // eslint-disable-next-line react-hooks/exhaustive-deps
   }, [isAuthenticated]);
+
+  useEffect(() => {
+    console.log(userNFTs);
+  }, [userNFTs]);
 
   return (
     <Box
@@ -41,6 +56,7 @@ const Home: NextPage = () => {
       {isAuthenticated && (
         <>
           <NavBar />
+          <Collection />
           <Receiving />
           <Sending />
         </>

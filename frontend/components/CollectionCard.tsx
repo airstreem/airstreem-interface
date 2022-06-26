@@ -28,11 +28,15 @@ const ReceivingParentCard = ({
     <Box
       w="220px"
       h="300px"
-      boxshadow="xl"
+      boxShadow="xl"
       rounded="25px"
       p={6}
       overflow="hidden"
       bg="white"
+      _hover={{
+        transform: "translateY(-1px)",
+        cursor: "pointer",
+      }}
     >
       <Box
         h="180px"
@@ -50,9 +54,6 @@ const ReceivingParentCard = ({
           {title}
         </Text>
         <Text color="gray.500">{body}</Text>
-        <Text color="gray.500" pb="20px">
-          {"owner: vitalik.eth"}
-        </Text>
       </VStack>
     </Box>
   );

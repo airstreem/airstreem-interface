@@ -15,7 +15,12 @@ const ReceivingCard = ({
   slug?: string;
 }) => {
   return (
-    <Box>
+    <Box
+      _hover={{
+        transform: "translateY(-2px)",
+        cursor: "pointer",
+      }}
+    >
       <Box style={{ filter: "brightness(.8)" }}>
         <ReceivingParentCard
           title={title}

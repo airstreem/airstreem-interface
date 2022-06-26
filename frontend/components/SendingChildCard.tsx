@@ -24,7 +24,7 @@ const SendingChildCard = ({
 }) => {
   return (
     <Box
-      w="250px"
+      w="220px"
       h="330px"
       boxShadow="xl"
       rounded="25px"

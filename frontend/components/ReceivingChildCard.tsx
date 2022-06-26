@@ -16,9 +16,9 @@ import { FaLock } from "react-icons/fa";
 const ReceivingChildCard = () => {
   return (
     <Box
-      w="250px"
+      w="220px"
       h="300px"
-      boxShadow="lg"
+      boxshadow="xl"
       rounded="25px"
       overflow="hidden"
       backgroundPosition="center"

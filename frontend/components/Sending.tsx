@@ -129,10 +129,17 @@ const Sending = () => {
   };
 
   return (
-    <Box p={12} boxShadow="2xl" m="20px 20% 20px 20%" rounded={25} bg="white">
+    <Box
+      p={12}
+      boxShadow="2xl"
+      m="20px 20% 20px 20%"
+      rounded={25}
+      bg="white"
+      minW="800px"
+    >
       <VStack spacing={4} align="stretch">
         <Flex justify={"stretch"}>
-          <Heading>Sending</Heading>
+          <Heading fontSize={"3xl"}>Sending</Heading>
           <Spacer />
           <Button
             onClick={onOpen}
@@ -144,7 +151,7 @@ const Sending = () => {
             Create Stream
           </Button>
         </Flex>
-        <SimpleGrid columns={3} spacing={10} pt={10}>
+        <SimpleGrid columns={3} spacing={4} pt={4}>
           {Cards.map((c) => (
             <SendingCard
               key={c.id}

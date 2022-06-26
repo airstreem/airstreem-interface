@@ -1,29 +1,20 @@
 import {
   Box,
-  Flex,
-  Text,
-  Button,
-  Menu,
-  MenuButton,
-  MenuItem,
-  MenuList,
   Heading,
-  Center,
+  Text,
+  Image,
   VStack,
   SimpleGrid,
-  Spacer,
-  useDisclosure,
-  ModalContent,
   Modal,
-  Image,
+  Button,
+  ModalContent,
   ModalOverlay,
+  useDisclosure,
 } from "@chakra-ui/react";
-import { useMoralis } from "react-moralis";
-import ReceivingCard from "./ReceivingCard";
 
-const Receiving = () => {
-  const { isOpen, onOpen, onClose } = useDisclosure();
+import CollectionCard from "./CollectionCard";
 
+const Collection = () => {
   const Cards = [
     {
       id: "1",
@@ -58,22 +49,11 @@ const Receiving = () => {
       minW="800px"
     >
       <VStack spacing={4} align="stretch">
-        <Flex justify={"stretch"}>
-          <Heading fontSize={"3xl"}>Receiving</Heading>
-          <Spacer />
-          <Button
-            onClick={onOpen}
-            fontSize={"xl"}
-            h="50px"
-            colorScheme={"blue"}
-            rounded="25px"
-          >
-            Swap Tokens
-          </Button>
-        </Flex>
+        <Heading fontSize={"3xl"}>My Collection</Heading>
+
         <SimpleGrid columns={3} spacing={4} pt={4}>
           {Cards.map((c) => (
-            <ReceivingCard
+            <CollectionCard
               key={c.id}
               title={c.title}
               body={c.body}
@@ -83,16 +63,8 @@ const Receiving = () => {
           ))}
         </SimpleGrid>
       </VStack>
-      <Modal onClose={onClose} size={"lg"} isOpen={isOpen}>
-        <ModalOverlay />
-        <ModalContent>
-          <Center h="500px" w="500px">
-            <Heading>Swap Tokens</Heading>
-          </Center>
-        </ModalContent>
-      </Modal>
     </Box>
   );
 };
 
-export default Receiving;
+export default Collection;

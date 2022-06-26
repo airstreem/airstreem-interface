@@ -15,14 +15,7 @@ import { useMoralis } from "react-moralis";
 
 const WalletModal = () => {
   const { isOpen, onOpen, onClose } = useDisclosure();
-  const {
-    authenticate,
-    isAuthenticated,
-    isAuthenticating,
-    user,
-    account,
-    logout,
-  } = useMoralis();
+  const { authenticate, isAuthenticated } = useMoralis();
 
   const login = async ({ provider }) => {
     if (!isAuthenticated) {
