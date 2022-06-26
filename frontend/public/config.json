@@ -1,0 +1,16 @@
+{
+  "data": [
+    {
+      "image": "apes/ape1.png",
+      "json": "apes/ape1.json"
+    },
+    {
+      "image": "apes/ape2.png",
+      "json": "apes/ape2.json"
+    },
+    {
+      "image": "apes/ape3.png",
+      "json": "apes/ape3.json"
+    }
+  ]
+}

@@ -27,7 +27,6 @@ import { useRef, useState } from "react";
 import { IoMdImage } from "react-icons/io";
 import { useMoralis, useMoralisFile } from "react-moralis";
 import SendingCard from "./SendingCard";
-// import listReactFiles from "list-react-files";
 
 const Sending = () => {
   const {
@@ -41,6 +40,7 @@ const Sending = () => {
 
   const { saveFile } = useMoralisFile();
   const [fileTarget, setFileTarget] = useState("");
+  const [metaTarget, setMetaTarget] = useState("");
 
   const inputRef = useRef();
 
@@ -72,31 +72,23 @@ const Sending = () => {
 
   const onStartStream = async () => {
     // Save file input to IPFS
+    const file = new Moralis.File(fileTarget.name, fileTarget);
+    await file.saveIPFS();
+    console.log(file.ipfs());
+    console.log(file.hash());
 
-    // saveFile("ape.png", fileTarget, {
-    //   type: "image/png",
-    //   onSuccess: (result) => console.log(result),
-    //   onError: (error) => console.log(error),
-    // });
+    const fileLoader = new FileReader();
+    fileLoader.readAsText(metaTarget);
+    fileLoader.onload = async (e) => {
+      // console.log();
 
-    const file = new Moralis.File("apestream.png", fileTarget);
-    var find = require("list-files");
+      const meta = JSON.parse(e.target.result);
+      console.log(meta);
+    };
 
-    find(
-      function (result) {
-        console.log(result);
-        // => './dirname/a.js'
-        //=> './dirname/b.js'
-      },
-      {
-        dir: "apes/",
-        name: "png",
-      }
-    );
-    // listReactFiles(__dirname).then((files) => console.log(files));
-    // await file.saveIPFS();
-    // console.log(file.ipfs());
-    // console.log(file.hash());
+    // await meta.saveIPFS();
+    // console.log(meta.ipfs());
+    // console.log(meta.hash());
 
     // TODO: send hash to backend
   };
@@ -157,20 +149,15 @@ const Sending = () => {
             </FormControl>
 
             <FormControl isRequired>
-              <FormLabel htmlFor="files">Upload files</FormLabel>
+              <FormLabel htmlFor="files">Upload NFT image</FormLabel>
 
-              {/* File Upload */}
+              {/* Image Upload */}
               <Center w="full">
                 <VStack
                   borderColor="gray.300"
                   w="full"
                   borderStyle="dashed"
                   borderWidth="2px"
-                  // position="relative"
-                  // backgroundPosition="center"
-                  // backgroundRepeat="no-repeat"
-                  // backgroundSize="cover"
-                  // backgroundImage={file}
                 >
                   <Icon as={IoMdImage} color="gray.300" w={16} h={16} />
                   <Input
@@ -189,6 +176,38 @@ const Sending = () => {
                     }}
                   />
                   <Text>{fileTarget.name}</Text>
+                </VStack>
+              </Center>
+            </FormControl>
+
+            <FormControl isRequired>
+              <FormLabel htmlFor="files">Upload files</FormLabel>
+
+              {/* Metadata Upload */}
+              <Center w="full">
+                <VStack
+                  borderColor="gray.300"
+                  w="full"
+                  borderStyle="dashed"
+                  borderWidth="2px"
+                >
+                  <Icon as={IoMdImage} color="gray.300" w={16} h={16} />
+                  <Input
+                    type="file"
+                    height="full"
+                    width="full"
+                    position="absolute"
+                    opacity="0"
+                    aria-hidden="false"
+                    accept="json/*"
+                    onChange={(e) => {
+                      setMetaTarget(e.target.files[0]);
+                    }}
+                    _hover={{
+                      cursor: "pointer",
+                    }}
+                  />
+                  <Text>{metaTarget.name}</Text>
                 </VStack>
               </Center>
             </FormControl>
