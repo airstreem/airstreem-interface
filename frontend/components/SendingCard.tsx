@@ -15,7 +15,9 @@ const SendingCard = ({ nfts }) => {
         cursor: "pointer",
       }}
       onClick={() => {
-        // router.push(`/sending/${slug}`);
+        router.push(
+          "https://app.superfluid.finance/streams/mumbai/0x5493b94a949e3fb0858b5ed337ee529cbaf50ad52b15543ae00f8249f98ea8ca/34/v1"
+        );
       }}
     >
       <Box style={{ filter: "brightness(.8)" }}>

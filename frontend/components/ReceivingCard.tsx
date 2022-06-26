@@ -24,7 +24,7 @@ const ReceivingCard = ({
       }}
       onClick={() => {
         router.push(
-          "https://app.superfluid.finance/streams/mumbai/0xa54822ad63b4fd1fbeeffeef634609e3b9c3e1f88c118a25380721e613770432/148/v1"
+          "https://app.superfluid.finance/streams/mumbai/0x5493b94a949e3fb0858b5ed337ee529cbaf50ad52b15543ae00f8249f98ea8ca/34/v1"
         );
         // router.push(`/receiving/${slug}`);
       }}
