@@ -11,6 +11,8 @@ import {
   VStack,
 } from "@chakra-ui/react";
 import { useRouter } from "next/router";
+import { useEffect, useState } from "react";
+import { useMoralis, useMoralisWeb3Api } from "react-moralis";
 
 const ReceivingParentCard = ({
   title,
@@ -24,6 +26,7 @@ const ReceivingParentCard = ({
   slug?: string;
 }) => {
   const router = useRouter();
+
   return (
     <Box
       w="220px"
@@ -36,6 +39,9 @@ const ReceivingParentCard = ({
       _hover={{
         transform: "translateY(-1px)",
         cursor: "pointer",
+      }}
+      onClick={() => {
+        router.push(`/collection/${slug}`);
       }}
     >
       <Box

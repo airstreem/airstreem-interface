@@ -10,14 +10,7 @@ import Collection from "../components/Collection";
 import { useMoralisWeb3Api } from "react-moralis";
 
 const Home: NextPage = () => {
-  const {
-    authenticate,
-    isAuthenticated,
-    isAuthenticating,
-    user,
-    account,
-    logout,
-  } = useMoralis();
+  const { isAuthenticated, user, account } = useMoralis();
   const Web3Api = useMoralisWeb3Api();
   const [userNFTs, setUserNFTs] = useState(null);
 
@@ -41,27 +34,11 @@ const Home: NextPage = () => {
   }, [userNFTs]);
 
   return (
-    <Box
-      as="main"
-      w="full"
-      // minH="2000px"
-      // maxWidth={1100}
-      alignContent={"center"}
-      justifyContent={"center"}
-      margin="0 auto"
-      bg={isAuthenticated ? "gray.100" : "white"}
-      pb={12}
-    >
-      {!isAuthenticated && <WalletModal />}
-      {isAuthenticated && (
-        <>
-          <NavBar />
-          <Collection />
-          <Receiving />
-          <Sending />
-        </>
-      )}
-    </Box>
+    <>
+      <Collection />
+      <Receiving />
+      <Sending />
+    </>
   );
 };
 

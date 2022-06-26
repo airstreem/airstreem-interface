@@ -1,4 +1,5 @@
 import { Box } from "@chakra-ui/react";
+import { useRouter } from "next/router";
 
 import ReceivingParentCard from "./ParentCard";
 import SendingChildCard from "./SendingChildCard";
@@ -14,11 +15,15 @@ const ReceivingCard = ({
   header?: string;
   slug?: string;
 }) => {
+  const router = useRouter();
   return (
     <Box
       _hover={{
         transform: "translateY(-2px)",
         cursor: "pointer",
+      }}
+      onClick={() => {
+        router.push(`/sending/${slug}`);
       }}
     >
       <Box style={{ filter: "brightness(.8)" }}>

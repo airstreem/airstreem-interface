@@ -10,6 +10,7 @@ import {
 } from "@chakra-ui/react";
 import { useMoralis } from "react-moralis";
 import { BiWalletAlt } from "react-icons/bi";
+import { useRouter } from "next/router";
 
 const NavBar = () => {
   const {
@@ -20,6 +21,7 @@ const NavBar = () => {
     account,
     logout,
   } = useMoralis();
+  const router = useRouter();
 
   const logOut = async () => {
     await logout();
@@ -35,7 +37,14 @@ const NavBar = () => {
         alignItems="center"
         justifyContent="space-between"
       >
-        <Text fontWeight={"bold"} fontSize="xl">
+        <Text
+          fontWeight={"bold"}
+          fontSize="xl"
+          onClick={() => {
+            router.push("/");
+          }}
+          _hover={{ cursor: "pointer" }}
+        >
           airstream
         </Text>
         <Menu>
