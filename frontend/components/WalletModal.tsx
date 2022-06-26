@@ -20,7 +20,15 @@ const WalletModal = () => {
   const login = async ({ provider }) => {
     if (!isAuthenticated) {
       await authenticate({
-        provider: provider,
+        provider: "walletconnect",
+        mobileLinks: [
+          // "rainbow",
+          "metamask",
+          // "argent",
+          // "trust",
+          // "imtoken",
+          // "pillar",
+        ],
         signingMessage: "Log in using Moralis",
       })
         .then(function (user) {
@@ -42,7 +50,7 @@ const WalletModal = () => {
       <Modal onClose={onClose} size={"lg"} isOpen={isOpen}>
         <ModalOverlay />
         <ModalContent>
-          <Button
+          {/* <Button
             h={250}
             onClick={() => {
               login("metamask");
@@ -55,7 +63,7 @@ const WalletModal = () => {
                 Connect with your Metamask wallet
               </Text>
             </VStack>
-          </Button>
+          </Button> */}
 
           <Button
             h={250}
