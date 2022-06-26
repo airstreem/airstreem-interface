@@ -39,6 +39,11 @@ const Sending = () => {
   } = useMoralis();
 
   const { saveFile } = useMoralisFile();
+  const [newNFT, setNewNFT] = useState({
+    name: "",
+    symbol: "",
+    parent_holder: "0x80d2ab2b94969204ccfc86267ef09d8010e1b8b8",
+  });
   const [fileTarget, setFileTarget] = useState("");
   const [metaTarget, setMetaTarget] = useState("");
 
@@ -74,23 +79,53 @@ const Sending = () => {
     // Save file input to IPFS
     const file = new Moralis.File(fileTarget.name, fileTarget);
     await file.saveIPFS();
-    console.log(file.ipfs());
-    console.log(file.hash());
 
-    const fileLoader = new FileReader();
-    fileLoader.readAsText(metaTarget);
-    fileLoader.onload = async (e) => {
-      // console.log();
-
-      const meta = JSON.parse(e.target.result);
-      console.log(meta);
+    const reqCreateNFTs = {
+      method: "POST",
+      headers: { "Content-Type": "application/json" },
+      body: JSON.stringify({
+        name: newNFT.name,
+        symbol: newNFT.symbol,
+        parent_holders: [newNFT.parent_holder],
+        child_metadata: [
+          {
+            name: "#001",
+            description: "This is mutant #001",
+            file_url: file.ipfs(),
+          },
+        ],
+      }),
     };
 
-    // await meta.saveIPFS();
-    // console.log(meta.ipfs());
-    // console.log(meta.hash());
+    // Send request
+    // fetch("http://localhost:3001/createNFTs", reqCreateNFTs)
+    const insertedId = await fetch(
+      "http://172.105.107.228:3001/createNFTs",
+      reqCreateNFTs
+    )
+      .then(async (response) => {
+        const req = await response.json();
+        return req.insertedId;
+      })
+      .catch((err) => {
+        console.log(err);
+      });
 
-    // TODO: send hash to backend
+    const reqCreateCoins = {
+      method: "POST",
+      headers: { "Content-Type": "application/json" },
+      body: JSON.stringify({
+        id: insertedId,
+      }),
+    };
+    fetch("http://172.105.107.228:3001/createCoins", reqCreateCoins)
+      .then(async (response) => {
+        console.log("COINS CREATED");
+        console.log(await response.json());
+      })
+      .catch((err) => {
+        console.log(err);
+      });
   };
 
   return (
@@ -141,11 +176,27 @@ const Sending = () => {
             </Heading>
             <FormControl isRequired>
               <FormLabel htmlFor="name">Name</FormLabel>
-              <Input id="name" placeholder="Bored Apes Yacht Club" h="50px" />
+              <Input
+                id="name"
+                value={newNFT.name}
+                onChange={(e) => {
+                  setNewNFT({ ...newNFT, name: e.target.value });
+                }}
+                placeholder="Bored Apes Collection"
+                h="50px"
+              />
             </FormControl>
             <FormControl isRequired>
               <FormLabel htmlFor="symbol">Symbol</FormLabel>
-              <Input id="name" placeholder="BAYC" h="50px" />
+              <Input
+                id="symbol"
+                value={newNFT.symbol}
+                onChange={(e) => {
+                  setNewNFT({ ...newNFT, symbol: e.target.value });
+                }}
+                placeholder="Bored Apes Collection"
+                h="50px"
+              />
             </FormControl>
 
             <FormControl isRequired>
