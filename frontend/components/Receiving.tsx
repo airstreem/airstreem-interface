@@ -66,7 +66,11 @@ const Receiving = () => {
           //   nft.contract.address ===
           //   "0xe0f3cf3a8f27b3504ecb7f82621f7f9cdc0ad625"
           // )
-          if (nft.metadata.name === "#003") {
+          if (
+            nft.metadata.name === "#005" &&
+            nft.contract.address ===
+              "0xe0f3cf3a8f27b3504ecb7f82621f7f9cdc0ad625"
+          ) {
             nfts.push({
               address: nft.contract.address,
               name: nft.metadata.name,

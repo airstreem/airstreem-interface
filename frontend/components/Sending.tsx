@@ -67,17 +67,18 @@ const Sending = () => {
     // Make the request and print the formatted response:
     fetch(fetchURL, requestOptions).then(async (response) => {
       const res = await response.json();
-      console.log(res);
+      // console.log(res);
 
       if (res) {
         // console.log(res);
         let nfts = [];
         res.ownedNfts.map((nft) => {
-          // if (
-          //   nft.contract.address ===
-          //   "0xe0f3cf3a8f27b3504ecb7f82621f7f9cdc0ad625"
-          // )
-          if (nft.metadata.name === "#003") {
+          // nft.contract.address === "0x6a681fb4790000138eba056005d466b4c722e46d";
+          if (
+            nft.metadata.name === "#005" ||
+            nft.contract.address ===
+              "0x6a681fb4790000138eba056005d466b4c722e46d"
+          ) {
             nfts.push({
               address: nft.contract.address,
               name: nft.metadata.name,
@@ -175,17 +176,11 @@ const Sending = () => {
             Create Stream
           </Button>
         </Flex>
-        <SimpleGrid columns={3} spacing={4} pt={4}>
-          {userNFTs.map((c) => (
-            <SendingCard
-              key={c.address}
-              name={c.name}
-              description={c.description}
-              image={c.image}
-              slug={"aaa"}
-            />
-          ))}
-        </SimpleGrid>
+        {userNFTs.length && (
+          <SimpleGrid columns={3} spacing={4} pt={4}>
+            <SendingCard nfts={userNFTs} />
+          </SimpleGrid>
+        )}
       </VStack>
       <Modal onClose={onClose} size={"2xl"} isOpen={isOpen}>
         <ModalOverlay />
